@@ -33,12 +33,17 @@ public class PlayerController : MonoBehaviour
         if (!canMove)
         {
             isMoving = false;
-            rb.velocity = Vector3.zero;
+           SetVelocity(Vector3.zero);
             return;
         }
-         
         
-        Movement();
+    }
+
+    public void SetVelocity(Vector3 vel)
+    {
+        Debug.Log("velocity: " + rb.velocity);
+
+        rb.velocity = vel;
     }
 
     public void OnMove(InputValue inp)
@@ -49,8 +54,8 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(horizontal, 0f, vertical);*/
         Vector3 movement = inp.Get<Vector2>();
         Vector3 m = new Vector3(movement.x, 0f, movement.y);
-        
-        rb.velocity = m * speed;
+
+        SetVelocity(m * speed);
         if (m.magnitude > 0f)
         {
             isMoving = true;
@@ -61,14 +66,10 @@ public class PlayerController : MonoBehaviour
         {
             isMoving = false;
             animator.SetBool("isMoving", isMoving);
-            rb.velocity = Vector3.zero;
+            SetVelocity(Vector3.zero);
         }
     }
 
-    void Movement()
-    {
-
-    }
 
     public void OnInteract(InputValue inp)
     {
@@ -109,7 +110,6 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Throw");
         fakeBag.transform.parent = bagHoldPosition;
         StartCoroutine(DelayThrow());
-        rb.velocity = Vector3.zero;
         isMoving = false;
 
     }
@@ -122,8 +122,6 @@ public class PlayerController : MonoBehaviour
         activeBag = Instantiate(throwingBagPrefab, throwBagPosition.position, throwBagPosition.rotation);
         activeBag.transform.parent = null;
         activeBag.GetComponent<ThrowingBag>().Fly();
-        
-        rb.velocity = Vector3.zero;
         hasBag = false;
     }
 
