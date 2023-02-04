@@ -17,10 +17,14 @@ public class PlayerController : MonoBehaviour
     public string horizontalInputAxis, verticalInputAxis, actionButton;
     public Rigidbody rb;
     public GameObject throwingBagPrefab;
+    public GameObject fakeBagPrefab;
     public Transform bagHoldPosition;
-    
+    public Transform initialBagPosition;
+    public Transform throwBagPosition;
+
     private bool hasBag = false;
     private GameObject activeBag;
+    private GameObject fakeBag;
     bool canMove = true;
     
 
@@ -29,12 +33,17 @@ public class PlayerController : MonoBehaviour
         if (!canMove)
         {
             isMoving = false;
-            rb.velocity = Vector3.zero;
+           SetVelocity(Vector3.zero);
             return;
         }
-         
         
-        Movement();
+    }
+
+    public void SetVelocity(Vector3 vel)
+    {
+        Debug.Log("velocity: " + rb.velocity);
+
+        rb.velocity = vel;
     }
 
     public void OnMove(InputValue inp)
@@ -45,8 +54,8 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(horizontal, 0f, vertical);*/
         Vector3 movement = inp.Get<Vector2>();
         Vector3 m = new Vector3(movement.x, 0f, movement.y);
-        
-        rb.velocity = m * speed;
+
+        SetVelocity(m * speed);
         if (m.magnitude > 0f)
         {
             isMoving = true;
@@ -57,13 +66,10 @@ public class PlayerController : MonoBehaviour
         {
             isMoving = false;
             animator.SetBool("isMoving", isMoving);
-            rb.velocity = Vector3.zero;
+            SetVelocity(Vector3.zero);
         }
     }
 
-    void Movement()
-    {
-    }
 
     public void OnInteract(InputValue inp)
     {
@@ -80,14 +86,14 @@ public class PlayerController : MonoBehaviour
     
     IEnumerator DelayMovement()
     {
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(1.5f);
         canMove = true;
     }
     
     public void GetBag()
     {
-        activeBag = Instantiate(throwingBagPrefab, bagHoldPosition.position, bagHoldPosition.rotation);
-        activeBag.transform.parent = bagHoldPosition;
+        fakeBag = Instantiate(fakeBagPrefab, initialBagPosition.position, initialBagPosition.rotation);
+        fakeBag.transform.parent = initialBagPosition;
         hasBag = true;
     }
 
@@ -101,8 +107,22 @@ public class PlayerController : MonoBehaviour
 
     void ThrowBag()
     {
+        animator.SetTrigger("Throw");
+        fakeBag.transform.parent = bagHoldPosition;
+        StartCoroutine(DelayThrow());
+        isMoving = false;
+
+    }
+
+   
+    IEnumerator DelayThrow()
+    {
+        yield return new WaitForSeconds(0.7f);
+        Destroy(fakeBag);
+        activeBag = Instantiate(throwingBagPrefab, throwBagPosition.position, throwBagPosition.rotation);
         activeBag.transform.parent = null;
         activeBag.GetComponent<ThrowingBag>().Fly();
         hasBag = false;
     }
+
 }
