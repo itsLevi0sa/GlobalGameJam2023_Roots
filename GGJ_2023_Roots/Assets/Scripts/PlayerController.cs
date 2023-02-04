@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
         if (!canMove)
         {
             isMoving = false;
+            rb.velocity = Vector3.zero;
             return;
         }
          
@@ -59,20 +60,24 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxis(horizontalInputAxis);
         float vertical = Input.GetAxis(verticalInputAxis);
         Vector3 movement = new Vector3(horizontal, 0f, vertical);
-        rb.velocity = movement * speed;
-        if (movement.magnitude > 0f)
+        Debug.Log(movement.magnitude);
+
+        if (movement.magnitude > 0)
         {
             isMoving = true;
             animator.SetBool("isMoving", isMoving);
             transform.rotation = Quaternion.LookRotation(movement);
+            rb.velocity = movement * speed;
+
         }
         else
         {
             isMoving = false;
             animator.SetBool("isMoving", isMoving);
+            rb.velocity = Vector3.zero;
         }
        
-
+        
     }
     
     
@@ -93,6 +98,7 @@ public class PlayerController : MonoBehaviour
 
     void ThrowBag()
     {
+        animator.SetTrigger("Throw");
         activeBag.transform.parent = null;
         activeBag.GetComponent<ThrowingBag>().Fly();
         hasBag = false;
