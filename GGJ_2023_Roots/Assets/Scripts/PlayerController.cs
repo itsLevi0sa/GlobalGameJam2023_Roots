@@ -67,9 +67,10 @@ public class PlayerController : MonoBehaviour
 
     void Movement()
     {
+
     }
 
-    public void OnInteract(InputValue inp)
+            public void OnInteract(InputValue inp)
     {
         HandleAction();
         if (!hasBag)
@@ -84,7 +85,7 @@ public class PlayerController : MonoBehaviour
     
     IEnumerator DelayMovement()
     {
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(1.5f);
         canMove = true;
     }
     
