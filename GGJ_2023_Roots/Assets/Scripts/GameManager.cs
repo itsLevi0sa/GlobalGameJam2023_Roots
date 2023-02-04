@@ -1,18 +1,30 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int timer;
+    public TextMeshProUGUI timerText;
+    
+    private void Start()
     {
-        
+        StartCoroutine(TimerCoroutine());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator TimerCoroutine()
     {
-        
+        while (timer > 0)
+        {
+            timer--;
+            yield return new WaitForSeconds(1f);
+            if (timer < 10)
+            {
+                timerText.text = "0:0" + timer.ToString();
+            }
+            else
+                timerText.text = "0:" + timer.ToString();
+                
+        }
     }
 }

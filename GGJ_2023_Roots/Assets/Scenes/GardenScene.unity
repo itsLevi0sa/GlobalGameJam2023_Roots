@@ -8769,6 +8769,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47b136d63eb8e64db2e135832a39d5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 60
+  timerText: {fileID: 615427609}
 --- !u!4 &1194108331 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1a1dd832d9d14a644a55088e3e1fc596,

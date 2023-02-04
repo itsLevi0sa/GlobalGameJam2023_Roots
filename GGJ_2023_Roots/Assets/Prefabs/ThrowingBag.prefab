@@ -49,6 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 5862619780221536480}
   flyStrength: 18
+  stainPArticles: {fileID: 2078851517374483088, guid: cc6001e275e5bd649a34b81faf37a2c1,
+    type: 3}
 --- !u!54 &5862619780221536480
 Rigidbody:
   m_ObjectHideFlags: 0

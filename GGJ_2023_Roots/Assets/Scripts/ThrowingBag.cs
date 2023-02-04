@@ -4,6 +4,7 @@ public class ThrowingBag : MonoBehaviour
 {
     public Rigidbody rb;
     public float flyStrength;
+    public GameObject stainPArticles;
 
     public void Fly()
     {
@@ -16,6 +17,7 @@ public class ThrowingBag : MonoBehaviour
     {
         if (collision.transform.CompareTag("Ground"))
         {
+            Instantiate(stainPArticles, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
