@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-            public void OnInteract(InputValue inp)
+    public void OnInteract(InputValue inp)
     {
         HandleAction();
         if (!hasBag)
@@ -107,10 +107,10 @@ public class PlayerController : MonoBehaviour
     void ThrowBag()
     {
         animator.SetTrigger("Throw");
-        Debug.Log("Throw!");
         fakeBag.transform.parent = bagHoldPosition;
         StartCoroutine(DelayThrow());
         rb.velocity = Vector3.zero;
+        isMoving = false;
 
     }
 
@@ -118,11 +118,11 @@ public class PlayerController : MonoBehaviour
     IEnumerator DelayThrow()
     {
         yield return new WaitForSeconds(0.7f);
-        fakeBag.transform.parent = null;
         Destroy(fakeBag);
         activeBag = Instantiate(throwingBagPrefab, throwBagPosition.position, throwBagPosition.rotation);
+        activeBag.transform.parent = null;
         activeBag.GetComponent<ThrowingBag>().Fly();
-        fakeBag.transform.parent = null;
+        
         rb.velocity = Vector3.zero;
         hasBag = false;
     }
