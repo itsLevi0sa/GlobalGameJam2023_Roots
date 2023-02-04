@@ -17,10 +17,14 @@ public class PlayerController : MonoBehaviour
     public string horizontalInputAxis, verticalInputAxis, actionButton;
     public Rigidbody rb;
     public GameObject throwingBagPrefab;
+    public GameObject fakeBagPrefab;
     public Transform bagHoldPosition;
-    
+    public Transform initialBagPosition;
+    public Transform throwBagPosition;
+
     private bool hasBag = false;
     private GameObject activeBag;
+    private GameObject fakeBag;
     bool canMove = true;
     
 
@@ -86,8 +90,8 @@ public class PlayerController : MonoBehaviour
     
     public void GetBag()
     {
-        activeBag = Instantiate(throwingBagPrefab, bagHoldPosition.position, bagHoldPosition.rotation);
-        activeBag.transform.parent = bagHoldPosition;
+        fakeBag = Instantiate(fakeBagPrefab, initialBagPosition.position, initialBagPosition.rotation);
+        fakeBag.transform.parent = initialBagPosition;
         hasBag = true;
     }
 
@@ -101,8 +105,25 @@ public class PlayerController : MonoBehaviour
 
     void ThrowBag()
     {
-        activeBag.transform.parent = null;
+        animator.SetTrigger("Throw");
+        Debug.Log("Throw!");
+        fakeBag.transform.parent = bagHoldPosition;
+        StartCoroutine(DelayThrow());
+        rb.velocity = Vector3.zero;
+
+    }
+
+   
+    IEnumerator DelayThrow()
+    {
+        yield return new WaitForSeconds(0.7f);
+        fakeBag.transform.parent = null;
+        Destroy(fakeBag);
+        activeBag = Instantiate(throwingBagPrefab, throwBagPosition.position, throwBagPosition.rotation);
+        activeBag.transform.parent = throwBagPosition;
         activeBag.GetComponent<ThrowingBag>().Fly();
+        rb.velocity = Vector3.zero;
         hasBag = false;
     }
+
 }
