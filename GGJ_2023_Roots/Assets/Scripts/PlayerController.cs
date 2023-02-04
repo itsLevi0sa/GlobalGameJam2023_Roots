@@ -120,8 +120,8 @@ public class PlayerController : MonoBehaviour
         fakeBag.transform.parent = null;
         Destroy(fakeBag);
         activeBag = Instantiate(throwingBagPrefab, throwBagPosition.position, throwBagPosition.rotation);
-        activeBag.transform.parent = throwBagPosition;
         activeBag.GetComponent<ThrowingBag>().Fly();
+        fakeBag.transform.parent = null;
         rb.velocity = Vector3.zero;
         hasBag = false;
     }
