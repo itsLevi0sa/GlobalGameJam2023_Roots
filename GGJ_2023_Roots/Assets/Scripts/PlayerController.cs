@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public enum Player
 {
@@ -37,12 +38,20 @@ public class PlayerController : MonoBehaviour
         {
             if (!hasBag)
             {
+                canMove = false;
+                StartCoroutine(DelayMovement());
                 animator.SetTrigger("Pickup");
                 GameEvents.OnInteract?.Invoke(player);
-            }
-               
+            }     
             HandleAction();
         }
+    }
+
+    IEnumerator DelayMovement()
+    {
+        yield return new WaitForSeconds(7f);
+        canMove = true;
+
     }
 
     void Movement()
@@ -55,15 +64,12 @@ public class PlayerController : MonoBehaviour
         {
             isMoving = true;
             animator.SetBool("isMoving", isMoving);
-            //animator.Play("Running");
-            //animator.SetTrigger("Pickup");
             transform.rotation = Quaternion.LookRotation(movement);
         }
         else
         {
             isMoving = false;
             animator.SetBool("isMoving", isMoving);
-            animator.Play("Idle");
         }
        
 
