@@ -696,6 +696,8 @@ GameObject:
   - component: {fileID: 6318962197429913349}
   - component: {fileID: 1554086199234304142}
   - component: {fileID: 5441781952404336993}
+  - component: {fileID: 5956779641402934041}
+  - component: {fileID: 1451461573524193956}
   m_Layer: 0
   m_Name: MainCharacter
   m_TagString: Untagged
@@ -753,6 +755,57 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &5956779641402934041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6699849980034604479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f00be43e9dab41fb8602de84115f1035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveAction: {fileID: -3191349354230456957, guid: 97210cd740af04df697b1fa71c9c9623,
+    type: 3}
+  jumpAction: {fileID: -1716598805974648882, guid: 97210cd740af04df697b1fa71c9c9623,
+    type: 3}
+  sprintAction: {fileID: -5518264110772991118, guid: 97210cd740af04df697b1fa71c9c9623,
+    type: 3}
+--- !u!114 &1451461573524193956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6699849980034604479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8f6befb8e534bf5b9cc141abcde2b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 4660700512981248048}
+  movementSpeed: 7
+  runMultiplier: 1.5
+  rotationSpeed: 20
+  acceleration: 10
+  airAcceleration: 5
+  deceleration: 15
+  airDeceleration: 1
+  weight: 45
+  jumpLength: 0.5
+  jumpForce: 20
+  jumpCutOff: 0.5
+  coyoteTime: 0.125
+  maxFallSpeed: 20
+  cruiseHeight: 1
+  raycastLength: 1.5
+  springStrength: 40
+  dampenFactor: 0.05
+  walkableLayers:
+    serializedVersion: 2
+    m_Bits: 3758096833
 --- !u!1 &6802030644086039843
 GameObject:
   m_ObjectHideFlags: 0
