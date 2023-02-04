@@ -7,6 +7,9 @@ public enum Player
 
 public class PlayerController : MonoBehaviour
 {
+    public Animator animator;
+    private bool isMoving = false;
+
     public Player player;
     public float speed;
     public string horizontalInputAxis, verticalInputAxis, actionButton;
@@ -22,14 +25,22 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (!canMove)
-         return;
+        {
+            isMoving = false;
+            return;
+        }
+         
         
         Movement();
 
         if (Input.GetButtonDown(actionButton))
         {
-            if(!hasBag)
+            if (!hasBag)
+            {
+                animator.SetTrigger("Pickup");
                 GameEvents.OnInteract?.Invoke(player);
+            }
+               
             HandleAction();
         }
     }
@@ -42,8 +53,20 @@ public class PlayerController : MonoBehaviour
         rb.velocity = movement * speed;
         if (movement.magnitude > 0f)
         {
+            isMoving = true;
+            animator.SetBool("isMoving", isMoving);
+            //animator.Play("Running");
+            //animator.SetTrigger("Pickup");
             transform.rotation = Quaternion.LookRotation(movement);
         }
+        else
+        {
+            isMoving = false;
+            animator.SetBool("isMoving", isMoving);
+            animator.Play("Idle");
+        }
+       
+
     }
     
     

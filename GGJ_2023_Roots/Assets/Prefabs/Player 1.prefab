@@ -261,6 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1f2c35a5ff83646bc9f67d26ee0164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 5515885139028198458}
   player: 0
   speed: 7
   horizontalInputAxis: Horizontal
@@ -377,6 +378,12 @@ PrefabInstance:
 --- !u!4 &1904020556594552384 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 15b197ce53700844faafbb39957aef02,
+    type: 3}
+  m_PrefabInstance: {fileID: 2154631464751298987}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5515885139028198458 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 15b197ce53700844faafbb39957aef02,
     type: 3}
   m_PrefabInstance: {fileID: 2154631464751298987}
   m_PrefabAsset: {fileID: 0}
