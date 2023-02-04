@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using System.Collections;
 
 public enum Player
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
     private bool hasBag = false;
     private GameObject activeBag;
     bool canMove = true;
-
+    
 
     void Update()
     {
@@ -34,41 +35,23 @@ public class PlayerController : MonoBehaviour
          
         
         Movement();
-
-        if (Input.GetButtonDown(actionButton))
-        {
-            if (!hasBag)
-            {
-                canMove = false;
-                StartCoroutine(DelayMovement());
-                animator.SetTrigger("Pickup");
-                GameEvents.OnInteract?.Invoke(player);
-            }     
-            HandleAction();
-        }
     }
 
-    IEnumerator DelayMovement()
+    public void OnMove(InputValue inp)
     {
-        yield return new WaitForSeconds(7f);
-        canMove = true;
-
-    }
-
-    void Movement()
-    {
-        float horizontal = Input.GetAxis(horizontalInputAxis);
+        
+        /*float horizontal = Input.GetAxis(horizontalInputAxis);
         float vertical = Input.GetAxis(verticalInputAxis);
-        Vector3 movement = new Vector3(horizontal, 0f, vertical);
-        Debug.Log(movement.magnitude);
-
-        if (movement.magnitude > 0)
+        Vector3 movement = new Vector3(horizontal, 0f, vertical);*/
+        Vector3 movement = inp.Get<Vector2>();
+        Vector3 m = new Vector3(movement.x, 0f, movement.y);
+        
+        rb.velocity = m * speed;
+        if (m.magnitude > 0f)
         {
             isMoving = true;
             animator.SetBool("isMoving", isMoving);
-            transform.rotation = Quaternion.LookRotation(movement);
-            rb.velocity = movement * speed;
-
+            transform.rotation = Quaternion.LookRotation(m);
         }
         else
         {
@@ -76,10 +59,30 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isMoving", isMoving);
             rb.velocity = Vector3.zero;
         }
-       
-        
+    }
+
+    void Movement()
+    {
+    }
+
+    public void OnInteract(InputValue inp)
+    {
+        HandleAction();
+        if (!hasBag)
+        {
+            canMove = false;
+            StartCoroutine(DelayMovement());
+            animator.SetTrigger("Pickup");
+            GameEvents.OnInteract?.Invoke(player);
+        }
+            
     }
     
+    IEnumerator DelayMovement()
+    {
+        yield return new WaitForSeconds(7f);
+        canMove = true;
+    }
     
     public void GetBag()
     {
@@ -98,7 +101,6 @@ public class PlayerController : MonoBehaviour
 
     void ThrowBag()
     {
-        animator.SetTrigger("Throw");
         activeBag.transform.parent = null;
         activeBag.GetComponent<ThrowingBag>().Fly();
         hasBag = false;

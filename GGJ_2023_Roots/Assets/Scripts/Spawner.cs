@@ -22,7 +22,7 @@ public class Spawner : MonoBehaviour
     private void Start()
     {
         SpawnTiles();
-      //  StartCoroutine(SpawnRoots());
+        StartCoroutine(SpawnRoots());
     }
 
     void SpawnTiles()
@@ -34,6 +34,8 @@ public class Spawner : MonoBehaviour
                 GameObject newTile = Instantiate(tilePrefab, transform);
                 newTile.transform.localPosition = new Vector3(i * 2, 0f, j * 2);
                 availableTiles.Add(newTile.transform);
+                newTile.GetComponent<Tile>().playerController = playerController;
+                newTile.GetComponent<Tile>().rootSide = rootSide;
             }
         }
     }
@@ -45,32 +47,20 @@ public class Spawner : MonoBehaviour
         {
             if (rootNumber < maxPlayerRoots)
             {
-                Root root = Instantiate(rootPrefab, GetRandomTile(), Quaternion.identity).GetComponent<Root>();
-                root.rootSide = RootSide.Left;
-                root.spawner = this;
-                root.playerController = playerController;
+                GetRandomTile().RevealRoot();
                 rootNumber++;
             }
             yield return new WaitForSeconds(spawnRateSeconds);
         }
     }
 
-    Vector3 GetRandomTile()
+    Tile GetRandomTile()
     {
-        
         Transform newTile = availableTiles[Random.Range(0, availableTiles.Count)];
         availableTiles.Remove(newTile);
-        return newTile.position;
+        return newTile.GetComponent<Tile>();
     }
 
-
-    Vector3 GetRandomXZ(Vector4 bounds)
-    {
-        float randomX = Random.Range(bounds.x, bounds.y);
-        float randomY = Random.Range(bounds.z, bounds.w);
-        return new Vector3(randomX, 0f, randomY);
-    }
-    
 
     public void DecreaseNumber()
     {

@@ -4,12 +4,25 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     Spawner spawner;
-    private GameObject root;
+    public Root root;
+    [HideInInspector] public PlayerController playerController;
+    public RootSide rootSide;
 
     private void Awake()
     {
         spawner = GetComponentInParent<Spawner>();
-        root = transform.GetChild(0).gameObject;
+    }
+
+    private void Start()
+    {
+        root.playerController = playerController;
+        root.spawner = spawner;
+    }
+
+    public void RevealRoot()
+    {
+        root.rootSide = rootSide;
+        root.gameObject.SetActive(true);
     }
 
 
