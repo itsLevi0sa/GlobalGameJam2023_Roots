@@ -2665,7 +2665,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRadius: 4
-  prefabToSpawn: {fileID: 4666490834533792131, guid: cd9bcc1feead9419fac0c5981ce85c23,
+  prefabToSpawn: {fileID: 6699849980034604479, guid: b6385aed449b83341b5c2f0c6e784bb8,
     type: 3}
   gameplayVCam: {fileID: 333732234}
   lookAtPlayer: 0
