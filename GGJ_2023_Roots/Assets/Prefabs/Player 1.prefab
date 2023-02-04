@@ -261,6 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1f2c35a5ff83646bc9f67d26ee0164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 3074809324570731575}
   player: 0
   speed: 7
   horizontalInputAxis: Horizontal
@@ -374,6 +375,12 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: e59c0fe7464456348aaace81116921f1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15b197ce53700844faafbb39957aef02, type: 3}
+--- !u!95 &3074809324570731575 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 15b197ce53700844faafbb39957aef02,
+    type: 3}
+  m_PrefabInstance: {fileID: 8917548804053948838}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8956470118832225869 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 15b197ce53700844faafbb39957aef02,

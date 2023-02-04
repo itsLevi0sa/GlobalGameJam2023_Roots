@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public enum Player
 {
@@ -8,6 +9,9 @@ public enum Player
 
 public class PlayerController : MonoBehaviour
 {
+    public Animator animator;
+    private bool isMoving = false;
+
     public Player player;
     public float speed;
     public string horizontalInputAxis, verticalInputAxis, actionButton;
@@ -23,7 +27,12 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (!canMove)
-         return;
+        {
+            isMoving = false;
+            rb.velocity = Vector3.zero;
+            return;
+        }
+         
         
         Movement();
     }
@@ -40,7 +49,15 @@ public class PlayerController : MonoBehaviour
         rb.velocity = m * speed;
         if (m.magnitude > 0f)
         {
+            isMoving = true;
+            animator.SetBool("isMoving", isMoving);
             transform.rotation = Quaternion.LookRotation(m);
+        }
+        else
+        {
+            isMoving = false;
+            animator.SetBool("isMoving", isMoving);
+            rb.velocity = Vector3.zero;
         }
     }
 
@@ -51,10 +68,21 @@ public class PlayerController : MonoBehaviour
     public void OnInteract(InputValue inp)
     {
         HandleAction();
-        if(!hasBag)
+        if (!hasBag)
+        {
+            canMove = false;
+            StartCoroutine(DelayMovement());
+            animator.SetTrigger("Pickup");
             GameEvents.OnInteract?.Invoke(player);
+        }
+            
     }
     
+    IEnumerator DelayMovement()
+    {
+        yield return new WaitForSeconds(7f);
+        canMove = true;
+    }
     
     public void GetBag()
     {
