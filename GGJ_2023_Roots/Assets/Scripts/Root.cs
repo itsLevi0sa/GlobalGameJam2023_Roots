@@ -19,6 +19,7 @@ public class Root : MonoBehaviour
     public GameObject root1Obj, root2Obj, root3Obj;
     private bool increaseTimer = true;
     private float pickupTimeMultiplier;
+    public AudioSource audioSource;
 
     enum Phase
     {
@@ -90,6 +91,8 @@ public class Root : MonoBehaviour
 
     IEnumerator CircleFill()
     {
+        audioSource.Play();
+        GameEvents.OnUsedBag?.Invoke(rootSide == RootSide.Left? 1 : 2);
         increaseTimer = false;
         canvas.SetActive(true);
         float elapsedTime = 0f;
