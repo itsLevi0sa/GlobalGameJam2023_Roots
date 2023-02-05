@@ -100,7 +100,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: picked bag!
+  m_text: refilled bags!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff2b7b19ac50f7a4e999e62903f019ec, type: 2}
   m_sharedMaterial: {fileID: -1473493455135593628, guid: ff2b7b19ac50f7a4e999e62903f019ec,
