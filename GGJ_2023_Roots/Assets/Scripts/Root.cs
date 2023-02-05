@@ -18,6 +18,7 @@ public class Root : MonoBehaviour
     private float timer;
     public GameObject root1Obj, root2Obj, root3Obj;
     private bool increaseTimer = true;
+    private float pickupTimeMultiplier;
 
     enum Phase
     {
@@ -35,6 +36,7 @@ public class Root : MonoBehaviour
         root1Obj.SetActive(true);
         phase = Phase.First;
         collectTime = 1f;
+        pickupTimeMultiplier = 1f;
     }
 
     private void OnDisable()
@@ -61,7 +63,6 @@ public class Root : MonoBehaviour
                 if (timer >= lvl1Life)
                 {
                     phase = Phase.Second;
-                    collectTime = 2f;
                     timer = 0f;
                     root1Obj.SetActive(false);
                     root2Obj.SetActive(true);
