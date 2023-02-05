@@ -30,7 +30,9 @@ public class PlayerController : MonoBehaviour
     private bool canInteract = true;
     public SkinnedMeshRenderer playerRenderer;
     public AnimationCurve flashCurve;
-
+    public BagManager bagManager;
+    public AudioSource audioSource;
+    
     void Update()
     {
         if (!canMove)
@@ -72,7 +74,18 @@ public class PlayerController : MonoBehaviour
     public void OnInteract(InputValue inp)
     {
         if (!canInteract) return;
+        
         HandleAction();
+        if (player == Player.P1)
+        {
+            if (bagManager.bagsNum1 <= 0) 
+                return;
+        }
+        else
+        {
+            if (bagManager.bagsNum2 <= 0)
+                return;
+        }
         if (!hasBag && nearRoot)
         {
             canMove = false;
@@ -115,6 +128,7 @@ public class PlayerController : MonoBehaviour
 
     public void ThrowFromHand()
     {
+        audioSource.Play();
         Destroy(fakeBag);
         activeBag = Instantiate(throwingBagPrefab, throwBagPosition.position, throwBagPosition.rotation);
         activeBag.transform.parent = null;

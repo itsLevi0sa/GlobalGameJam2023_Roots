@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,6 +39,16 @@ public class BagManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    private void OnEnable()
+    {
+        GameEvents.OnUsedBag += UsedBag;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnUsedBag -= UsedBag;
     }
 
     private void Start()
@@ -117,7 +128,7 @@ public class BagManager : MonoBehaviour
 
     IEnumerator DestroyP1UI()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         if (pickedBagWarning_p1 != null)
         {
             Destroy(pickedBagWarning_p1);
@@ -134,7 +145,7 @@ public class BagManager : MonoBehaviour
 
     IEnumerator DestroyP2UI()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         if (pickedBagWarning_p2 != null)
         {
             Destroy(pickedBagWarning_p2);
@@ -176,7 +187,7 @@ public class BagManager : MonoBehaviour
                 StartCoroutine(DestroyP2UI());
                 return;
             }
-            bagsNum2 = bagsNum2 + 1;
+            bagsNum2 = bagsNum2 - 1;
             bagCounter2.text = bagsNum2.ToString();
             if (noBagsWarning_p2 != null)
             {
