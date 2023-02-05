@@ -7,21 +7,25 @@ public class BagManager : MonoBehaviour
 {
     public static BagManager Instance { get; private set; }
 
-    public TextMeshProUGUI bagCounterL;
-    public TextMeshProUGUI bagCounterR;
-    private int bagsNumL = 0;
-    private int bagsNumR = 0;
+    public TextMeshProUGUI bagCounter1;
+    public TextMeshProUGUI bagCounter2;
+    public int bagsNum1 = 0;
+    public int bagsNum2 = 0;
     public GameObject pickedBagWarningPrefab;
     public GameObject noBagsWarningPrefab;
+    public GameObject cantCarryMoreBagsWarningPrefab;
     private GameObject pickedBagWarning_p1;
     private GameObject pickedBagWarning_p2;
     private GameObject noBagsWarning_p1;
     private GameObject noBagsWarning_p2;
-    private Transform p1UIpos;
-    private Transform p2UIpos;
+    private GameObject cantCarryMoreBagsWarning_p1;
+    private GameObject cantCarryMoreBagsWarning_p2;
+    private GameObject p1UI;
+    private GameObject p2UI;
     public Transform p1;
     public Transform p2;
-    public bool isNearBagTable = false;
+    public bool isNearBagTable_p1 = false;
+    public bool isNearBagTable_p2 = false;
 
     private void Awake()
     {
@@ -38,40 +42,108 @@ public class BagManager : MonoBehaviour
 
     private void Start()
     {
-        bagCounterL.text = bagsNumL.ToString();
-        bagCounterR.text = bagsNumR.ToString();
+        bagCounter1.text = bagsNum1.ToString();
+        bagCounter2.text = bagsNum2.ToString();
     }
 
     public void Update()
     {
-        p1UIpos = p1;
+        
+        if (pickedBagWarning_p1 != null)
+        {
+            pickedBagWarning_p1.transform.position = p1.transform.position+ new Vector3(0,2,1);
+        }
+        if (pickedBagWarning_p2 != null)
+        {
+            pickedBagWarning_p2.transform.position = p2.transform.position + new Vector3(0, 2, 1);
+        }
+        if (noBagsWarning_p1 != null)
+        {
+            noBagsWarning_p1.transform.position = p1.transform.position + new Vector3(0, 2, 1);
+        }
+        if (noBagsWarning_p2 != null)
+        {
+            noBagsWarning_p2.transform.position = p2.transform.position + new Vector3(0, 2, 1);
+        }
+        if (cantCarryMoreBagsWarning_p1 != null)
+        {
+            cantCarryMoreBagsWarning_p1.transform.position = p1.transform.position + new Vector3(0, 2, 1);
+        }
+        if (cantCarryMoreBagsWarning_p2 != null)
+        {
+            cantCarryMoreBagsWarning_p2.transform.position = p2.transform.position + new Vector3(0, 2, 1);
+        }
     }
 
     public void PickedUpBag(int id)
     {
         if (id == 1)
         {
+            if (bagsNum1 == 5)
+            {
+                cantCarryMoreBagsWarning_p1 = Instantiate(cantCarryMoreBagsWarningPrefab, p1.position + new Vector3(0, 2, 0), Quaternion.Euler(90, 0, 0));
+                StartCoroutine(DestroyP1UI());
+                return;
+            }
+            bagsNum1 = bagsNum1 + 1;
+            bagCounter1.text = bagsNum1.ToString();
+            if (pickedBagWarning_p1 != null)
+            {
+                return;
+            }
             pickedBagWarning_p1 = Instantiate(pickedBagWarningPrefab, p1.position+new Vector3(0,2,0), Quaternion.Euler(90, 0, 0));
+            StartCoroutine(DestroyP1UI());
         }
         else
         {
+            if (bagsNum2 == 5)
+            {
+                cantCarryMoreBagsWarning_p2 = Instantiate(cantCarryMoreBagsWarningPrefab, p2.position + new Vector3(0, 2, 0), Quaternion.Euler(90, 0, 0));
+                StartCoroutine(DestroyP2UI());
+                return;
+            }
+            bagsNum2 = bagsNum2 + 1;
+            bagCounter2.text = bagsNum2.ToString();
+            if (pickedBagWarning_p2 != null)
+            {
+                return;
+            }
             pickedBagWarning_p2 = Instantiate(pickedBagWarningPrefab, p2.position + new Vector3(0, 2, 0), Quaternion.Euler(90, 0, 0));
+            StartCoroutine(DestroyP2UI());
         }  
     }
 
-    public void DestroyP1UI()
+    IEnumerator DestroyP1UI()
     {
+        yield return new WaitForSeconds(1.5f);
         if (pickedBagWarning_p1 != null)
         {
             Destroy(pickedBagWarning_p1);
         }
+        if (cantCarryMoreBagsWarning_p1 != null)
+        {
+            Destroy(cantCarryMoreBagsWarning_p1);
+        }
+        if (noBagsWarning_p1 != null)
+        {
+            Destroy(noBagsWarning_p1);
+        }
     }
 
-    public void DestroyP2UI()
+    IEnumerator DestroyP2UI()
     {
+        yield return new WaitForSeconds(1.5f);
         if (pickedBagWarning_p2 != null)
         {
             Destroy(pickedBagWarning_p2);
+        }
+        if (cantCarryMoreBagsWarning_p2 != null)
+        {
+            Destroy(cantCarryMoreBagsWarning_p2);
+        }
+        if (noBagsWarning_p2 != null)
+        {
+            Destroy(noBagsWarning_p2);
         }
     }
 
