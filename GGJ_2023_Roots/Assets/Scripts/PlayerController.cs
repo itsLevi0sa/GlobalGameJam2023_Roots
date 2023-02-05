@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
 
     public Player player;
     public float speed;
-    public string horizontalInputAxis, verticalInputAxis, actionButton;
     public Rigidbody rb;
     public GameObject throwingBagPrefab;
     public GameObject fakeBagPrefab;
@@ -28,6 +27,9 @@ public class PlayerController : MonoBehaviour
     bool canMove = true;
     [HideInInspector] public bool nearRoot;
     public float pickUpTime;
+    private bool canInteract = true;
+    public SkinnedMeshRenderer playerRenderer;
+    public AnimationCurve flashCurve;
 
     void Update()
     {
@@ -69,6 +71,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputValue inp)
     {
+        if (!canInteract) return;
         HandleAction();
         if (!hasBag && nearRoot)
         {
@@ -125,6 +128,27 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         canMove = true;
+    }
+
+    public void GetDamage()
+    {
+        StartCoroutine(DamageCoroutine());
+    }
+
+    IEnumerator DamageCoroutine()
+    {
+        canMove = false;
+        canInteract = false;
+        float elapsedTime = 0f;
+        while (elapsedTime < 1f)
+        {
+            playerRenderer.material.SetFloat("_Flash", flashCurve.Evaluate(elapsedTime/1f));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        canMove = true;
+        canInteract = true;
+        playerRenderer.material.SetFloat("_Flash", 0f);
     }
 
 }

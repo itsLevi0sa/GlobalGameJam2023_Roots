@@ -80,6 +80,13 @@ public class Root : MonoBehaviour
         }
     }
 
+    public void ReturnToLvl1()
+    {
+        root2Obj.SetActive(false);
+        root3Obj.SetActive(false);
+        root1Obj.SetActive(true);
+        phase = Phase.First;
+    }
 
     IEnumerator CircleFill()
     {
