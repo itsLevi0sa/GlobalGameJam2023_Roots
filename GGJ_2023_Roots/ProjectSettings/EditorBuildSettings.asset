@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GardenScene.unity
     guid: 01024628d34fca64dbd097cb7da6a5f3
+  - enabled: 1
+    path: Assets/Scenes/UI/GameOver.unity
+    guid: 379441a3296adc041bb4b1022cdad237
   m_configObjects:
     io.coherence.simulator.build.options: {fileID: 11400000, guid: b6f2029d8f07e401eb058758f2f7cbd1,
       type: 2}
