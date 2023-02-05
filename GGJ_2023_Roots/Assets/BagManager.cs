@@ -9,8 +9,8 @@ public class BagManager : MonoBehaviour
 
     public TextMeshProUGUI bagCounter1;
     public TextMeshProUGUI bagCounter2;
-    public int bagsNum1 = 0;
-    public int bagsNum2 = 0;
+    public int bagsNum1 = 5;
+    public int bagsNum2 = 5;
     public GameObject pickedBagWarningPrefab;
     public GameObject noBagsWarningPrefab;
     public GameObject cantCarryMoreBagsWarningPrefab;
@@ -42,6 +42,8 @@ public class BagManager : MonoBehaviour
 
     private void Start()
     {
+        bagsNum1 = 5;
+        bagsNum2 = 5;
         bagCounter1.text = bagsNum1.ToString();
         bagCounter2.text = bagsNum2.ToString();
     }
@@ -85,7 +87,7 @@ public class BagManager : MonoBehaviour
                 StartCoroutine(DestroyP1UI());
                 return;
             }
-            bagsNum1 = bagsNum1 + 1;
+            bagsNum1 = 5;
             bagCounter1.text = bagsNum1.ToString();
             if (pickedBagWarning_p1 != null)
             {
@@ -102,7 +104,7 @@ public class BagManager : MonoBehaviour
                 StartCoroutine(DestroyP2UI());
                 return;
             }
-            bagsNum2 = bagsNum2 + 1;
+            bagsNum2 = 5;
             bagCounter2.text = bagsNum2.ToString();
             if (pickedBagWarning_p2 != null)
             {
