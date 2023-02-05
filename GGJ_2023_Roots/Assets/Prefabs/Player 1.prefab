@@ -393,6 +393,7 @@ MonoBehaviour:
   initialBagPosition: {fileID: 1284607761614972669}
   throwBagPosition: {fileID: 4840537894512844897}
   nearRoot: 0
+  pickUpTime: 1
 --- !u!54 &4607409749270242196
 Rigidbody:
   m_ObjectHideFlags: 0
