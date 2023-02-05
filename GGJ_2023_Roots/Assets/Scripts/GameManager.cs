@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public Spawner spawnerLeft, spawnerRight;
     public GameObject gameOverScreen;
     public TextMeshProUGUI winnerText;
+    public AudioClip timerClip;
+    public AudioSource audioSource;
     
     private void Start()
     {
@@ -36,6 +38,7 @@ public class GameManager : MonoBehaviour
         GameOver();
     }
 
+    private bool threedone, twodone, onedone;
     void GameOver()
     {
         spawnerLeft.StopSpawning();
@@ -54,6 +57,24 @@ public class GameManager : MonoBehaviour
         else if (p1Score == p2Score)
         {
             winnerText.text = "Tie!";
+        }
+
+        if (timer == 3 && !threedone)
+        {
+            threedone = true;
+            audioSource.PlayOneShot(timerClip);
+        }
+
+        if (timer == 2 && !twodone)
+        {
+            twodone = true;
+            audioSource.PlayOneShot(timerClip);
+        }
+
+        if (timer == 1 && !onedone)
+        {
+            onedone = true;
+            audioSource.PlayOneShot(timerClip);
         }
     }
 }
