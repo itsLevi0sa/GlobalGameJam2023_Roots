@@ -17,12 +17,17 @@ public class Spawner : MonoBehaviour
     public PlayerController playerController;
     public RootSide rootSide;
     int rootNumber;
-    List<Transform> availableTiles = new List<Transform>();
+    public List<Transform> availableTiles = new List<Transform>();
 
     private void Start()
     {
         SpawnTiles();
         StartCoroutine(SpawnRoots());
+    }
+
+    public void StopSpawning()
+    {
+        StopAllCoroutines();
     }
 
     void SpawnTiles()
@@ -61,9 +66,14 @@ public class Spawner : MonoBehaviour
         return newTile.GetComponent<Tile>();
     }
 
-
-    public void DecreaseNumber()
+    public int GetNumberOfActiveRoots()
     {
+        return 1;
+    }
+
+    public void DecreaseNumber(Transform tile)
+    {
+        availableTiles.Add(tile);
         rootNumber--;
     }
 }

@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetVelocity(Vector3 vel)
     {
-        Debug.Log("velocity: " + rb.velocity);
+        //Debug.Log("velocity: " + rb.velocity);
 
         rb.velocity = vel;
     }

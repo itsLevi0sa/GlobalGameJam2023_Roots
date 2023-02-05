@@ -90,7 +90,7 @@ public class Root : MonoBehaviour
 
     void Picked()
     {
-        spawner.DecreaseNumber();
+        spawner.DecreaseNumber(transform.parent);
         Destroy(gameObject);
     }
 
