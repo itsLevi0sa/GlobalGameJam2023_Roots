@@ -26,38 +26,37 @@ public class PlayerController : MonoBehaviour
     private GameObject activeBag;
     private GameObject fakeBag;
     bool canMove = true;
-    public bool nearRoot;
+    [HideInInspector] public bool nearRoot;
+    public float pickUpTime;
 
     void Update()
     {
         if (!canMove)
         {
-            isMoving = false;
-           SetVelocity(Vector3.zero);
+            isMoving = false; 
+            SetVelocity(Vector3.zero);
             return;
         }
         
     }
 
-    public void SetVelocity(Vector3 vel)
-    {
-        //Debug.Log("velocity: " + rb.velocity);
-
-        rb.velocity = vel;
-    }
+    void SetVelocity(Vector3 vel) => rb.velocity = vel;
 
     public void OnMove(InputValue inp)
     {
         Vector3 movement = inp.Get<Vector2>();
         Vector3 m = new Vector3(movement.x, 0f, movement.y);
-
         SetVelocity(m * speed);
         if (m.magnitude > 0f)
         {
             isMoving = true;
             animator.SetBool("isMoving", isMoving);
-            if(canMove)
-             transform.rotation = Quaternion.LookRotation(m);
+            if (canMove)
+            {
+                
+                transform.rotation = Quaternion.LookRotation(m);
+                
+            }
         }
         else
         {
@@ -83,7 +82,7 @@ public class PlayerController : MonoBehaviour
     
     IEnumerator DelayMovement()
     {
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(pickUpTime);
         canMove = true;
     }
     
@@ -124,7 +123,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator CanMoveAgain()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.2f);
         canMove = true;
     }
 

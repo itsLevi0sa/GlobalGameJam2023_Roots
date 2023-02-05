@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        print(spawnerLeft.availableTiles.Count);
+        
     }
 
     IEnumerator TimerCoroutine()
@@ -43,8 +43,6 @@ public class GameManager : MonoBehaviour
         gameOverScreen.SetActive(true);
         int p1Score = 24 - spawnerLeft.availableTiles.Count;
         int p2Score = 24 - spawnerRight.availableTiles.Count;
-        Debug.Log(p1Score);
-        Debug.Log(p2Score);
         if (p1Score < p2Score)
         {
             winnerText.text = "Player 1 wins!";
