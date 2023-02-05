@@ -104,17 +104,14 @@ public class PlayerController : MonoBehaviour
 
     void ThrowBag()
     {
-       // animator.SetTrigger("Throw");
+        animator.SetTrigger("Throw");
         fakeBag.transform.parent = bagHoldPosition;
-        StartCoroutine(DelayThrow());
         isMoving = false;
 
     }
 
-   
-    IEnumerator DelayThrow()
+    public void ThrowFromHand()
     {
-        yield return null;
         Destroy(fakeBag);
         activeBag = Instantiate(throwingBagPrefab, throwBagPosition.position, throwBagPosition.rotation);
         activeBag.transform.parent = null;
