@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1834881959041887588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1834881959041887579}
+  - component: {fileID: 1834881959041887578}
+  m_Layer: 0
+  m_Name: BagManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1834881959041887579
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834881959041887588}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5971456, y: 10.667626, z: -4.3630667}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1834881959041887578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834881959041887588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 460c3fe6e8152104787117e051109165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bagCounter1: {fileID: 0}
+  bagCounter2: {fileID: 0}
+  bagsNum1: 0
+  bagsNum2: 0
+  pickedBagWarningPrefab: {fileID: 4621399433329276152, guid: 05fa73e24c2a4364e903a8f2cb358b5c,
+    type: 3}
+  noBagsWarningPrefab: {fileID: 3183576388708868369, guid: c4f0718ea7ae96c438c0e69d98afa62c,
+    type: 3}
+  cantCarryMoreBagsWarningPrefab: {fileID: 2166271606466776134, guid: b05d98667f2bd1c478eed172062bbf3e,
+    type: 3}
+  p1: {fileID: 0}
+  p2: {fileID: 0}
+  isNearBagTable_p1: 0
+  isNearBagTable_p2: 0

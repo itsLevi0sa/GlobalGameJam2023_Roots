@@ -147,4 +147,39 @@ public class BagManager : MonoBehaviour
         }
     }
 
+    public void UsedBag(int id)
+    {
+        if (id == 1)
+        {
+            if (bagsNum1 == 0)
+            {
+                noBagsWarning_p1 = Instantiate(noBagsWarningPrefab, p1.position + new Vector3(0, 2, 0), Quaternion.Euler(90, 0, 0));
+                StartCoroutine(DestroyP1UI());
+                return;
+            }
+            bagsNum1 = bagsNum1 - 1;
+            bagCounter1.text = bagsNum1.ToString();
+            
+            if (noBagsWarning_p1 != null)
+            {
+                return;
+            }
+            
+        }
+        else
+        {
+            if (bagsNum2 == 0)
+            {
+                noBagsWarning_p2 = Instantiate(noBagsWarningPrefab, p2.position + new Vector3(0, 2, 0), Quaternion.Euler(90, 0, 0));
+                StartCoroutine(DestroyP2UI());
+                return;
+            }
+            bagsNum2 = bagsNum2 + 1;
+            bagCounter2.text = bagsNum2.ToString();
+            if (noBagsWarning_p2 != null)
+            {
+                return;
+            }
+        }
+    }
 }
