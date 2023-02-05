@@ -17,6 +17,7 @@ public class Root : MonoBehaviour
     public PlayerController playerController;
     private float timer;
     public GameObject root1Obj, root2Obj, root3Obj;
+    private bool increaseTimer = true;
 
     enum Phase
     {
@@ -29,6 +30,11 @@ public class Root : MonoBehaviour
     private void OnEnable()
     {
         GameEvents.OnInteract += HandlePlayerInteraction;
+        root2Obj.SetActive(false);
+        root3Obj.SetActive(false);
+        root1Obj.SetActive(true);
+        phase = Phase.First;
+        collectTime = 1f;
     }
 
     private void OnDisable()
@@ -46,6 +52,8 @@ public class Root : MonoBehaviour
 
     private void Update()
     {
+        if (!increaseTimer)
+            return;
         timer += Time.deltaTime;
         switch (phase)
         {
@@ -53,6 +61,7 @@ public class Root : MonoBehaviour
                 if (timer >= lvl1Life)
                 {
                     phase = Phase.Second;
+                    collectTime = 2f;
                     timer = 0f;
                     root1Obj.SetActive(false);
                     root2Obj.SetActive(true);
@@ -73,6 +82,7 @@ public class Root : MonoBehaviour
 
     IEnumerator CircleFill()
     {
+        increaseTimer = false;
         canvas.SetActive(true);
         float elapsedTime = 0f;
         while (elapsedTime < collectTime)
@@ -90,27 +100,21 @@ public class Root : MonoBehaviour
 
     void Picked()
     {
-        spawner.DecreaseNumber();
-        Destroy(gameObject);
+        playerNear = false;
+        playerController.nearRoot = false;
+        spawner.DecreaseNumber(transform.parent);
+        gameObject.SetActive(false);
+        phase = Phase.First;
+        collectTime = 1f;
     }
 
-
-    public void HighlightOn()
-    {
-        
-    }
-
-    public void HighlightOff()
-    {
-        
-    }
-    
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player1") || other.CompareTag("Player2"))
         {
             playerNear = true;
+            playerController.nearRoot = true;
             GetComponentInParent<Tile>().HighlightOn();
         }
     }
@@ -121,6 +125,7 @@ public class Root : MonoBehaviour
         if (other.CompareTag("Player1") || other.CompareTag("Player2"))
         {
             playerNear = false;
+            playerController.nearRoot = false;
             StopAllCoroutines();
             fillImage.fillAmount = 0f;
             canvas.SetActive(false);

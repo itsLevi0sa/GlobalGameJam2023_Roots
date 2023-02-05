@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     private GameObject activeBag;
     private GameObject fakeBag;
     bool canMove = true;
-    
+    public bool nearRoot;
 
     void Update()
     {
@@ -41,17 +41,13 @@ public class PlayerController : MonoBehaviour
 
     public void SetVelocity(Vector3 vel)
     {
-        Debug.Log("velocity: " + rb.velocity);
+        //Debug.Log("velocity: " + rb.velocity);
 
         rb.velocity = vel;
     }
 
     public void OnMove(InputValue inp)
     {
-        
-        /*float horizontal = Input.GetAxis(horizontalInputAxis);
-        float vertical = Input.GetAxis(verticalInputAxis);
-        Vector3 movement = new Vector3(horizontal, 0f, vertical);*/
         Vector3 movement = inp.Get<Vector2>();
         Vector3 m = new Vector3(movement.x, 0f, movement.y);
 
@@ -60,7 +56,8 @@ public class PlayerController : MonoBehaviour
         {
             isMoving = true;
             animator.SetBool("isMoving", isMoving);
-            transform.rotation = Quaternion.LookRotation(m);
+            if(canMove)
+             transform.rotation = Quaternion.LookRotation(m);
         }
         else
         {
@@ -74,7 +71,7 @@ public class PlayerController : MonoBehaviour
     public void OnInteract(InputValue inp)
     {
         HandleAction();
-        if (!hasBag)
+        if (!hasBag && nearRoot)
         {
             canMove = false;
             StartCoroutine(DelayMovement());
@@ -86,7 +83,7 @@ public class PlayerController : MonoBehaviour
     
     IEnumerator DelayMovement()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.2f);
         canMove = true;
     }
     
@@ -107,22 +104,28 @@ public class PlayerController : MonoBehaviour
 
     void ThrowBag()
     {
+        canMove = false;
         animator.SetTrigger("Throw");
         fakeBag.transform.parent = bagHoldPosition;
-        StartCoroutine(DelayThrow());
         isMoving = false;
 
     }
 
-   
-    IEnumerator DelayThrow()
+    public void ThrowFromHand()
     {
-        yield return new WaitForSeconds(0.7f);
         Destroy(fakeBag);
         activeBag = Instantiate(throwingBagPrefab, throwBagPosition.position, throwBagPosition.rotation);
         activeBag.transform.parent = null;
         activeBag.GetComponent<ThrowingBag>().Fly();
         hasBag = false;
+        StartCoroutine(CanMoveAgain());
+        
+    }
+
+    IEnumerator CanMoveAgain()
+    {
+        yield return new WaitForSeconds(0.3f);
+        canMove = true;
     }
 
 }
