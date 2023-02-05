@@ -104,6 +104,7 @@ public class PlayerController : MonoBehaviour
 
     void ThrowBag()
     {
+        canMove = false;
         animator.SetTrigger("Throw");
         fakeBag.transform.parent = bagHoldPosition;
         isMoving = false;
@@ -117,6 +118,14 @@ public class PlayerController : MonoBehaviour
         activeBag.transform.parent = null;
         activeBag.GetComponent<ThrowingBag>().Fly();
         hasBag = false;
+        StartCoroutine(CanMoveAgain());
+        
+    }
+
+    IEnumerator CanMoveAgain()
+    {
+        yield return new WaitForSeconds(0.3f);
+        canMove = true;
     }
 
 }
