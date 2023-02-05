@@ -1153,7 +1153,7 @@ Transform:
   - {fileID: 1310264613}
   - {fileID: 924844295}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &495764547
 PrefabInstance:
@@ -14463,7 +14463,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!4 &1402905782 stripped
 Transform:
@@ -14478,6 +14478,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1489193688905852983, guid: 394f36a5017e1ad429125bd5addcb2ba,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ReplayGame
+      objectReference: {fileID: 0}
     - target: {fileID: 1489193690141578841, guid: 394f36a5017e1ad429125bd5addcb2ba,
         type: 3}
       propertyPath: m_Pivot.x
@@ -15930,7 +15935,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.12488167, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1979059150
 MeshRenderer:
