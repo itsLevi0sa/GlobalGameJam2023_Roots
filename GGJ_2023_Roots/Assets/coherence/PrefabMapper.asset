@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: PrefabMapper
   m_EditorClassIdentifier: 
   hasGuidIssue: 0
-  prefabMappings: []
+  prefabMappings:
+  - prefab: {fileID: 4607409749270242200, guid: b9b078832b2b25a49ae95a181c8ee39a,
+      type: 3}
+  - prefab: {fileID: 8373285130844247915, guid: bb1beeb1fed127c40b9a7690bf48899e,
+      type: 3}
